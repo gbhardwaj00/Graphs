@@ -1,4 +1,6 @@
 #include <iostream>
+//O|V^2| with adjacency matrix
+
 #include <queue>
 #include <vector>
 
