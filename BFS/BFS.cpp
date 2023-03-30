@@ -7,13 +7,21 @@ using namespace std;
 class Graph {
 private:
     vector<vector<int>> adjMatrix;       //two dimensional vector array
+    
 
 public:
+    vector<string> color;  //white = unvisted, grey = visited, black = explored
+    vector<int> distance;
+    vector<int> parent;
+
     Graph(int numVertices) {
         //numVertices intializes rows, the second argument initializes a one-dimensional vector of type int equal to size numOfVertices, all initialized to 0
         // initializing to 0 means no edge in the start
         //vertices start at 0
-        adjMatrix.resize(numVertices, vector<int>(numVertices, 0));  
+        adjMatrix.resize(numVertices, vector<int>(numVertices, 0));
+        color.resize(numVertices, "white");
+        distance.resize(numVertices, INT_MAX);
+        parent.resize(numVertices, -1);
     }
 
     void addEdge(int u, int v) {
@@ -23,11 +31,7 @@ public:
 
     void BFS(int s) {
         int numVertices = adjMatrix.size();     //used to set the initial values for each vertex
-
-        vector<string> color(numVertices, "white");  //white = unvisted, grey = visited, black = explored
-        vector<int> distance(numVertices, INT_MAX);
-        vector<int> parent(numVertices, -1);
-
+        
         color[s] = "grey";
         distance[s] = 0;
         parent[s] = -1;
@@ -54,6 +58,28 @@ public:
             cout << "Vertex " << i << ": distance = " << distance[i] << ", parent = " << parent[i] << endl;
         }
     }
+
+    //Prints the Path to a vertex v from s, the starting vertex
+    void printPath(int s, int v) {
+        if (parent[v] == -1) {
+            cout << "No path found from " << s << " to " << v << endl;
+        }
+        else {
+            cout << "Path from " << s << " to " << v << " is: ";
+            printPath2(s, v);
+            cout << endl;
+        }
+    }
+
+    void printPath2(int s, int v) {
+        if (s == v) {
+            cout << s << " ";
+        }
+        else {
+            printPath2(s, parent[v]);
+            cout << v << " ";
+        }
+    }
 };
 
 int main()
@@ -66,5 +92,7 @@ int main()
     G.addEdge(3, 4);
 
     G.BFS(0);
+
+    G.printPath(0, 4);
     return 0;
 }
