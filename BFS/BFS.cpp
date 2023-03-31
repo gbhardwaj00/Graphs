@@ -1,6 +1,6 @@
-#include <iostream>
-//O|V^2| with adjacency matrix
+// O(|V|^2) as it is done with a matrix, otherwise O(|V|+|E|) with adjacency list
 
+#include <iostream>
 #include <queue>
 #include <vector>
 
