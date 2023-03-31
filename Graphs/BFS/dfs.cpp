@@ -73,6 +73,7 @@ public:
 		cout << "Topologically sorted list is: ";
 		for (int i = 0; i < adjMatrix.size(); i++) {
 			cout << topSorted[i] << " ";
+			cout << endl;
 		}
 	}
 };
