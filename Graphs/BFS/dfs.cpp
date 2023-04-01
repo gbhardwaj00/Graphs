@@ -14,7 +14,6 @@ private:
 	vector<int> checked;						//when all edges of a vertex are explored
 	vector<int> parent;
 	vector<int> topSorted;
-
 	int step = 1;
 
 public:
@@ -27,6 +26,16 @@ public:
 		topSorted.resize(numVertices, -1);
 	}
 
+	void createTranspose(Graph g) {
+		for (int u = 0; u < g.adjMatrix.size(); u++) {
+			for (int v = 0; v < g.adjMatrix.size(); v++) {
+				if (g.adjMatrix[u][v] == 1) {
+					this->adjMatrix[v][u] = 1;
+				}
+			}
+		}
+	}
+
 	void addEdge(int u, int v) {
 		adjMatrix[u][v] = 1;					//directed graph
 	}
@@ -36,6 +45,19 @@ public:
 	void DFS() {//
 		for (int i = 0; i < adjMatrix.size(); i++) {
 			DFSRecusrive(i);
+		}
+	}
+
+	void DFSTranspose(Graph G) {
+		int treeNum = 1;
+		cout << "Strongly Connected Components are: \n";
+		for (int i = 0; i < adjMatrix.size(); i++) {
+			if (color[G.topSorted[i]] == "white") {
+				cout << "Tree: " << treeNum << " is: ";
+				treeNum++;
+				DFSRecusrive(G.topSorted[i]);
+				cout << "\n";
+			}
 		}
 	}
 
@@ -73,25 +95,53 @@ public:
 		cout << "Topologically sorted list is: ";
 		for (int i = 0; i < adjMatrix.size(); i++) {
 			cout << topSorted[i] << " ";
+		}
+		cout << endl;
+	}
+
+	void printGraph() {
+		cout << "Graph is as follows:\n";
+		for (int u = 0; u < adjMatrix.size(); u++) {
+			for (int v = 0; v < adjMatrix.size(); v++) {
+				cout << adjMatrix[u][v] << " ";
+			}
 			cout << endl;
 		}
+		cout << "\n";
+	}
+
+	void findSCCs(Graph G) {
+		Graph GT(G.adjMatrix.size());
+		GT.createTranspose(G);
+		GT.printGraph();
+		GT.DFSTranspose(G);
 	}
 };
 
 int main() {
 	Graph G(6);
-	G.addEdge(0, 1);
 	G.addEdge(0, 2);
-	G.addEdge(1, 3);
+	G.addEdge(2, 1);
+	G.addEdge(1, 0);
 	G.addEdge(2, 3);
 	G.addEdge(3, 4);
 	G.addEdge(3,5);
+	G.addEdge(4, 3);
 
 	G.DFS();
 
+	//printing information about each vectors attributes
 	G.printDandC();
 
+	//printing topological sorted list
 	G.printTopSorted();
+
+	//finding strongly connected components
+
+	cout << "Original graph G is: \n";
+	G.printGraph();
+	
+	G.findSCCs(G);
 
 	return 0;
 }
