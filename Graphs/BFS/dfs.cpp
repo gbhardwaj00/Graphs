@@ -23,7 +23,7 @@ public:
 		color.resize(numVertices, "white");
 		discovered.resize(numVertices, -1);
 		checked.resize(numVertices, -1);
-		parent.resize(numVertices, -1);
+		parent.resize(numVertices, -1);//
 		topSorted.resize(numVertices, -1);
 	}
 
