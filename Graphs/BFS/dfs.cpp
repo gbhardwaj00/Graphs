@@ -1,4 +1,4 @@
-// O(|V|^2) for DFS and Topological Sort as it is done with a matrix, otherwise O(|V|+|E|) with adjacency list
+// O(|V|^2) for DFS and Topological Sort as it is done with a matrix, otherwise O(|V|+|E|) with adjacency list //
 
 #include <iostream>
 #include <vector>
