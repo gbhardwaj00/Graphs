@@ -83,5 +83,4 @@ int main() {
 		cout << mst[i].u << " - " << mst[i].v << " : " << mst[i].weight << "\n";
 	}
 	return 0;
-	return 0;
 }
