@@ -11,3 +11,7 @@ printPath prints the path from a starting vertex to the provided vertex using BF
 DFS:
 Able to print a topological list for a DAG
 Able to find strongly connected components for a DG
+
+MST.cpp:
+
+Contains Prims Algorithm and Kruskals Algorithm
